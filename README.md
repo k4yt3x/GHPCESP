@@ -12,4 +12,5 @@ Inspiration was taken from [Universal-Unity-ESP](https://github.com/ethanedits/U
 2. Compile the project with Visual Studio. You will need to adjust the assembly references and the output path.
 3. [Install BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html) for GHPC.
 4. Copy the DLL file to the game's plugin directory like you would with normal BepInEx plugins.
-5. Press `F10` in-game to toggle the ESP.
+5. Press `F8` in-game to toggle the Vehicle/ATGM ESP.
+6. Press `F9` in-game to toggle the Infantry ESP.

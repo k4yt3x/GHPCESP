@@ -5,7 +5,6 @@ using GHPC.Player;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -17,16 +16,18 @@ namespace GHPCESP
         // Basic plugin information
         public const string pluginGuid = "ghpcesp.ghpc.mod";
         public const string pluginName = "GHPCESP";
-        public const string pluginVersion = "1.0.0.0";
+        public const string pluginVersion = "1.1.0.0";
 
         // Singleton instance
         public static GHPCESP Instance;
 
         // Lists to track objects in each round of the game
         public List<Unit> Units = new List<Unit>();
+        public List<Unit> InfantryUnits = new List<Unit>();
 
         // ESP toggles
         private bool EnableUnitsESP { get; set; } = false;
+        private bool EnableInfantryUnitsESP { get; set; } = false;
 
         public void Awake()
         {
@@ -46,35 +47,59 @@ namespace GHPCESP
 
         public void OnGUI()
         {
-            // remove the destroyed objects
-            Units = Units.Where(obj => obj != null).ToList();
-
             if (EnableUnitsESP)
             {
                 Render.DrawString(new Vector2(5, 2), "Unit ESP Enabled", Color.red, false);
-                DrawUnitESP();
+                DrawUnitsESP(Units);
+            }
+
+            if (EnableInfantryUnitsESP)
+            {
+                Render.DrawString(new Vector2(5, 20), "Infantry Unit ESP Enabled", Color.red, false);
+                DrawUnitsESP(InfantryUnits);
             }
         }
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F10))
+            if (Input.GetKeyDown(KeyCode.F8))
             {
                 EnableUnitsESP = !EnableUnitsESP;
             }
+
+            if (Input.GetKeyDown(KeyCode.F9))
+            {
+                EnableInfantryUnitsESP = !EnableInfantryUnitsESP;
+            }
+
+            // Remove the destroyed Unit objects
+            for (int i = Units.Count - 1; i >= 0; i--)
+            {
+                if (Units[i] == null)
+                {
+                    Units.RemoveAt(i);
+                }
+            }
+            for (int i = InfantryUnits.Count - 1; i >= 0; i--)
+            {
+                if (InfantryUnits[i] == null)
+                {
+                    InfantryUnits.RemoveAt(i);
+                }
+            }
         }
 
-        private void DrawUnitESP()
+        private void DrawUnitsESP(List<Unit> UnitsToDraw)
         {
             if (PlayerInput.Instance == null)
             {
                 return;
             }
 
-            foreach (Unit unit in Units)
+            foreach (Unit unit in UnitsToDraw)
             {
                 // Skip the current player unit
-                if (unit == PlayerInput.Instance.CurrentPlayerUnit)
+                if (unit == PlayerInput.Instance.CurrentPlayerUnit || unit == null)
                 {
                     continue;
                 }
