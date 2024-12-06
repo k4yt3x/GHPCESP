@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{fc1d684e-2e3c-4ea4-940a-de51fda3e5e8}</ProjectGuid>
+    <ProjectGuid>{FC1D684E-2E3C-4EA4-940A-DE51FDA3E5E8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GHPCESP</RootNamespace>
