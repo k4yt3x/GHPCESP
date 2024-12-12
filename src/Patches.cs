@@ -12,9 +12,9 @@ namespace GHPCESP
         {
             private static void Postfix(Unit __instance)
             {
-                if (!GHPCESP.Instance.Units.Contains(__instance))
+                if (!GHPCESPMod.Instance.Units.Contains(__instance))
                 {
-                    GHPCESP.Instance.Units.Add(__instance);
+                    GHPCESPMod.Instance.Units.Add(__instance);
                 }
             }
         }
@@ -24,9 +24,9 @@ namespace GHPCESP
         {
             private static void Postfix(Unit __instance)
             {
-                if (!GHPCESP.Instance.InfantryUnits.Contains(__instance))
+                if (!GHPCESPMod.Instance.InfantryUnits.Contains(__instance))
                 {
-                    GHPCESP.Instance.InfantryUnits.Add(__instance);
+                    GHPCESPMod.Instance.InfantryUnits.Add(__instance);
                 }
             }
         }

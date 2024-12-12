@@ -1,25 +1,31 @@
-﻿using BepInEx;
-using GHPC;
+﻿using GHPC;
 using GHPC.Camera;
 using GHPC.Player;
-using HarmonyLib;
+using GHPCESP;
+using MelonLoader;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
+
+[assembly: MelonInfo(typeof(GHPCESPMod), "GHPCESP", "1.2.0", "K4YT3X")]
+[assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace GHPCESP
 {
-    [BepInPlugin(pluginGuid, pluginName, pluginVersion)]
-    public class GHPCESP : BaseUnityPlugin
+    public static class BuildInfo
     {
-        // Basic plugin information
-        public const string pluginGuid = "ghpcesp.ghpc.mod";
-        public const string pluginName = "GHPCESP";
-        public const string pluginVersion = "1.1.0.0";
+        public const string Name = "GHPCESP";
+        public const string Description = "GHPC ESP Mod";
+        public const string Author = "K4YT3X";
+        public const string Company = null;
+        public const string Version = "1.2.0";
+        public const string DownloadLink = null;
+    }
 
+    public class GHPCESPMod : MelonMod
+    {
         // Singleton instance
-        public static GHPCESP Instance;
+        public static GHPCESPMod Instance;
 
         // Lists to track objects in each round of the game
         public List<Unit> Units = new List<Unit>();
@@ -29,23 +35,24 @@ namespace GHPCESP
         private bool EnableUnitsESP { get; set; } = false;
         private bool EnableInfantryUnitsESP { get; set; } = false;
 
-        public void Awake()
+        public override void OnInitializeMelon()
         {
             if (Instance != null)
             {
-                Logger.LogError($"Another instance of {pluginName} is already loaded");
-                Destroy(this);
+                MelonLogger.Error($"Another instance of {BuildInfo.Name} is already loaded");
                 return;
             }
+
             Instance = this;
-            Logger.LogInfo($"{pluginName} {pluginVersion} loaded");
+            MelonLogger.Msg($"{BuildInfo.Name} {BuildInfo.Version} loaded");
 
             // Enable hooks for tracking game object spawning
-            Harmony harmony = new Harmony(Guid.NewGuid().ToString());
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            //Harmony harmony = new Harmony(Guid.NewGuid().ToString());
+            //harmony.PatchAll(Assembly.GetExecutingAssembly());
+            HarmonyInstance.PatchAll();
         }
 
-        public void OnGUI()
+        public override void OnGUI()
         {
             if (EnableUnitsESP)
             {
@@ -60,7 +67,7 @@ namespace GHPCESP
             }
         }
 
-        public void Update()
+        public override void OnUpdate()
         {
             if (Input.GetKeyDown(KeyCode.F8))
             {
@@ -147,7 +154,7 @@ namespace GHPCESP
             Collider[] colliders = component.GetComponentsInChildren<Collider>();
             if (colliders.Length == 0)
             {
-                Logger.LogWarning($"{component.name} HAS NO COLLIDERS");
+                // Logger.LogWarning($"{component.name} HAS NO COLLIDERS");
 
                 // Return the position and 0 width if no colliders are found.
                 return (componentPos, componentPos, 0f);

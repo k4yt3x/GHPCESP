@@ -8,9 +8,9 @@ Inspiration was taken from [Universal-Unity-ESP](https://github.com/ethanedits/U
 
 ## Usage
 
-1. Download the pre-compiled DLL files from the [releases page](https://github.com/k4yt3x/GHPCESP/releases/latest); or
-2. Compile the project with Visual Studio. You will need to adjust the assembly references and the output path.
-3. [Install BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html) for GHPC.
-4. Copy the DLL file to the game's plugin directory like you would with normal BepInEx plugins.
+1. (Option 1) Download the pre-compiled DLL files from the [releases page](https://github.com/k4yt3x/GHPCESP/releases/latest); or
+2. (Option 2) Compile the project with Visual Studio. You will need to adjust the assembly references and the output path.
+3. [Install Melonloader](https://github.com/LavaGang/MelonLoader.Installer/releases/latest/download/MelonLoader.Installer.exe) for GHPC.
+4. Copy the DLL file to the game's `Mods` directory like you would with other Melonloader mods.
 5. Press `F8` in-game to toggle the Vehicle/ATGM ESP.
 6. Press `F9` in-game to toggle the Infantry ESP.
